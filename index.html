@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة عقارك - أفضل العقارات في الطائف</title>
+    
+    <!-- Bootstrap CSS RTL -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: white !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .category-card {
+            background: white;
+            border: 2px solid #e74c3c;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #c0392b;
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+        
+        .property-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 30px;
+            height: 100%;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .property-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .property-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .property-content {
+            padding: 20px;
+        }
+        
+        .property-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .property-location {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        
+        .property-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+        
+        .btn-details {
+            background: #3498db;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-details:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .modal-header {
+            background: #2c3e50;
+            color: white;
+        }
+        
+        .whatsapp-btn {
+            background: #25d366;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .whatsapp-btn:hover {
+            background: #128c7e;
+            transform: scale(1.05);
+        }
+        
+        .description-text {
+            white-space: pre-line;
+            line-height: 1.8;
+            color: #34495e;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+        
+        .search-box {
+            border-radius: 25px;
+            border: 2px solid #e74c3c;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+        }
+        
+        .search-box:focus {
+            outline: none;
+            border-color: #c0392b;
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-building"></i> منصة عقارك
+            </a>
+            <div class="d-flex">
+                <span class="text-light">
+                    <i class="bi bi-people-fill"></i> الزوار: <span id="visitorCount">1,247</span>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-4">أفضل العقارات في الطائف</h1>
+                    <p class="lead mb-4">اكتشف منزل أحلامك من مجموعة متنوعة من العقارات المميزة</p>
+                    <button class="btn btn-danger btn-lg px-5 py-3" onclick="scrollToProperties()">
+                        <i class="bi bi-search"></i> تصفح العقارات
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title">أقسام العقارات</h2>
+            
+            <!-- Search Box -->
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-8">
+                    <input type="text" class="form-control search-box" id="searchInput" 
+                           placeholder="ابحث عن العقار المناسب (العنوان، الموقع، السعر...)">
+                </div>
+            </div>
+            
+            <!-- Category Cards -->
+            <div class="row">
+                <div class="col-lg-2 col-md-4 col-6 mb-3">
+                    <div class="category-card" onclick="filterProperties('all')">
+                        <i class="bi bi-grid-3x3-gap category-icon"></i>
+                        <div class="fw-bold">عرض الكل</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-3">
+                    <div class="category-card" onclick="filterProperties('عمائر')">
+                        <i class="bi bi-building category-icon"></i>
+                        <div class="fw-bold">عمائر</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-3">
+                    <div class="category-card" onclick="filterProperties('شقق')">
+                        <i class="bi bi-house-door category-icon"></i>
+                        <div class="fw-bold">شقق</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-3">
+                    <div class="category-card" onclick="filterProperties('فلل')">
+                        <i class="bi bi-house category-icon"></i>
+                        <div class="fw-bold">فلل</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-3">
+                    <div class="category-card" onclick="filterProperties('أدوار مستقلة')">
+                        <i class="bi bi-layers category-icon"></i>
+                        <div class="fw-bold">أدوار مستقلة</div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-3">
+                    <div class="category-card" onclick="filterProperties('أراضي')">
+                        <i class="bi bi-geo-alt category-icon"></i>
+                        <div class="fw-bold">أراضي</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Properties Section -->
+    <section class="py-5 bg-light" id="propertiesSection">
+        <div class="container">
+            <h2 class="section-title">العقارات المتاحة</h2>
+            <div id="propertiesContainer" class="row">
+                <!-- العقارات ستظهر هنا -->
+            </div>
+            <div id="noResults" class="text-center py-5" style="display: none;">
+                <i class="bi bi-search display-1 text-muted"></i>
+                <h3 class="text-muted mt-3">لا توجد عقارات مطابقة لبحثك</h3>
+                <p class="text-muted">جرب البحث بكلمات مختلفة أو تصفح جميع العقارات</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Details Modal -->
+    <div class="modal fade" id="propertyModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- تفاصيل العقار ستظهر هنا -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // بيانات العقارات الحقيقية
+        const properties = [
+            {
+                "id": 1,
+                "title": "عمارة دورين منفصلة",
+                "category": "عمائر",
+                "location": "الطائف - حي نخب",
+                "price": "1,300,000 ريال",
+                "description": "📍 عمارة سكنية للبيع في حي نخب – الطائف\n🔹 المواصفات:\n✔ صك إلكتروني\nمساحة الأرض 400\nالمبنى 250\nالباقي احواش\n✔ دورين مستقلين، التفاصيل كالتالي:\nالدور الأول:\n5 غرف واسعة\n3 دورات مياه\nمطبخ وصالات رحبة\nمدخل مستقل + مدخل مشترك مع الدور الثاني\nمدخل إضافي من الواجهة الشرقية\nالدور الثاني:\n4 غرف واسعة\n3 دورات مياه\nمطبخ واسع\nصالتان فسيحتان\nغرفة خامسة غير مسقوفة (حوش) بإطلالة رائعة على حي السحيلي ومخطط البيعة وغرب الطائف\nمدخل منفصل من الواجهة الجنوبية\n✔ واجهتان شرقية وغربية مع ميدان في الجهة الشرقية\n✔ عمر العقار: 16 سنة\n🏠 العمارة مؤجرة بالكامل بـ 30,000 ريال سنويًا\n📍 الموقع: حي نخب – مقابل خزان المياه\n🏞 إطلالة بانورامية رائعة على مدينة الطائف\n💰 السعر المطلوب: 1,300,000 ريال صافي (يشمل الرهن العقاري البالغ 250,000 ريال)\n🔹 المطلوب دفع المبلغ كاش لسداد الرهن"
+            },
+            {
+                "id": 6,
+                "title": "عمارة 4 ادوار وملحق",
+                "category": "عمائر",
+                "location": "الطائف - الحلقة الشرقية",
+                "price": "3,500,000 ريال",
+                "description": "📢 عمارة للبيع في مخطط القاضي – الطائف\n📍 الموقع: حي الصيانة، بعد حي الحلقة الشرقية\n🏡 المساحة: 600 متر مربع\nعلى شارعين:\nشارع 25 متر شرقًا\nشارع 20 متر شمالًا\nإيجار الشقق 150 الف تقريباً\nمن غير الدور الخاص غير مؤجر\n🔹 مواصفات العمارة:\nعدد الأدوار: 4 أدوار + ملحق\nبدروم مكون من شقتين:\nكل شقة بمدخل مستقل\nغرفة وحمام ومطبخ للسائق\nغرفة خادمة مع حمام غسيل\nالدور الأول (خاص):\nمجلس رجال (8.6 م × 5 م)\nمقلط (صالة طعام) 9 م × 6 م\nمجلس نساء\nصالة جلوس واسعة\n3 غرف نوم\n4 حمامات\nمطبخ\nملحق في الحوش الخاص بالدور\nحوش مطل على المطبخ\nمدخلين (رجال ونساء) + مدخل سيارة\nالدور الثاني: شقتان\nالدور الثالث: شقتان\nالدور الرابع: ملحق مع السطح\nكل شقة مكونة من 4 غرف، 3 حمامات، مدخلين\nمدخل الشقق على شارع 20\nيوجد مصعد\n🔴 يوجد لها صك 📄\n🏠 حالة العقار: جديدة، عمرها 7 سنوات\n💰 جميع الشقق مؤجرة باستثناء الدور الأول (خاص)\n🏦 عليها تمويل من بنك التنمية العقارية بقيمة 340,000 ريال\n📌 السعر المطلوب: 3,500,000 ريال (غير قابل للتفاوض)"
+            },
+            {
+                "id": 8,
+                "title": "عمارة دور وشقتين عظم",
+                "category": "عمائر",
+                "location": "الطائف - ريحة",
+                "price": "800,000 ريال",
+                "description": "عماره جديده للبيع في ريحه\nمساحه 500\n300 البناء تقريباً\n🔴 لا تقبل البنك لانها بدون صك حالياً مرفوعه على منصة احكام في المرحلة الاخيرة 🔴\nعمر العقار 4 سنوات\nالعماره علي ثلاث ادوار ،،،دور الاول جاهز ودور الثاني شقتين عظم\nأدور ثالث لايوجد الأساسات الي في صبه والعمارة علي واجهتين\nتفاصيل العماره\nمدخل ،،،مجلس حريم مع دوره مياه\nصاله وغرفه غسيل ،مطبخ ومستودع ،\nغرفه مع دوره مياه جناح خاص\nغرفتين مع دوره مياه جناح خاص\nغرفتين مع دوره مياه جناح خاص\nمجلس الرجال 7/في 6مستقل في الحوش /يوجد ديوانية جاهزه 5في5مع دوره مياه\nيوجد حوش ومدخل لسياره ومدخل خاص الرجال\nالمطلوب 800 الف ريال 🔴"
+            },
+            {
+                "id": 10,
+                "title": "عمارة شقق 3 أدوار وملحق",
+                "category": "عمائر",
+                "location": "الطائف - شهار - جبل المفتي",
+                "price": "2,800,000 ريال",
+                "description": "🏢 فرصة استثمارية مميزة – عمارة سكنية فاخرة\nالسعر: 2,800,000 ريال (قابل للتفاوض)\nالموقع: جبل المفتي شهار\n📐 المواصفات الرئيسية\nالمساحة: 524 م²\nالأدوار: 3 أدوار + بدروم + ملحق + سطح\nالشقق: 5 شقق بتصميم أنيق\nالمصعد: أوتوماتيكي (فوجي الإيطالية - سعة 8 أشخاص)\nالتفاصيل\nالبدروم: مواقف سيارات، غرفة حارس، مستودع\nالشقق:\nالدور الاول: شقتان صغيرتان (غرفتين، صالتين، مطبخ)\nالدور الثاني :شقتان أنيقتان (4 غرف، 3 دورات مياه، صالة، مطبخ)\nالدور الثالث :شقة متكاملة (4 أجنحة، مجلس، مطبخ كبير، 4 دورات مياه)\nالملحق: مجلس كبير، صالة شعبية مع مشب، مغاسل\nالسطح: بيت شعر، جلسة خارجية، أوفس\n✅ المميزات\nمدخلين لكل شقة\nخزانين كبيرين للماء والصرف\nتوصيل خدمات متكامل (ماء، صرف، كهرباء)\nبناء مصبوب باللبشة (حديد سابك، مواد عالية الجودة)\nضمان شامل على العمارة والتشطيبات\n💼 لماذا تشتري هذه العمارة؟\nموقع مميز في جبل المفتي شهار\nتصميم فاخر ومرافق متكاملة\nعائد استثماري ممتاز (5 شقق للإيجار)"
+            },
+            {
+                "id": 11,
+                "title": "شقق تمليك",
+                "category": "شقق",
+                "location": "الطائف - مثملة - مخطط الفهد",
+                "price": "530,000 ريال",
+                "description": "للبيع شقق تمليك في مخطط الفهد – حي مثملة\n📍 الموقع: خلف مستوصف البندر كلينك\nالدور الارضي تم بيعه\n🏡 المواصفات:\nالمساحة: 191 متر مربع\n4 غرف واسعة\nصالة مريحة\nمطبخ مستقل\nمستودع عملي\n3 دورات مياه\n💰 السعر المطلوب: 530,000 ريال فيه تفاوض"
+            },
+            {
+                "id": 12,
+                "title": "دور في عمارة",
+                "category": "أدوار مستقلة",
+                "location": "الطائف - الحلقة الغربية",
+                "price": "800,000 ريال",
+                "description": "🏡 دور للبيع في الدور الاول في الحلقة الغربية – موقع مميز بالقرب من العثيم 🏡\n🔹 الموقع: الحلقة الغربية – قريب من العثيم\n🔹 المساحة: حوالي 375 م²\n🔹 المواصفات:\n✔ عدد الغرف: 8 غرف واسعة\n✔ الصالة: كبيرة بمقاس 8×6 م\n✔ عدد دورات المياه: 4\n✔ المطبخ: واسع ومجهز\n✔ مشب في الحوش للاستمتاع بجلسات رائعة\n✔ الحوش: حوشين مستقلين\n🔹 المرافق والخدمات:\n✅ عداد كهرباء خاص\n✅ خزان مياه خاص\n✅ المياه والصرف الصحي متوفران\n✅ 3 مداخل خاصة لخصوصية أكثر\n✅ واجهتين مميزتين\n💰 السعر المطلوب: 800 ألف شامل البنك (صافي)\n🏦 عليه 560 ألف بنك الراجحي"
+            },
+            {
+                "id": 13,
+                "title": "عمارة شقق 3 أدوار",
+                "category": "عمائر",
+                "location": "الطائف - ريحة",
+                "price": "1,000,000 ريال",
+                "description": "🏢 للبيع – عمارة سكنية استثمارية بموقع مميز!\n📍 الموقع: على شارعين، مسجلة في منصة إحكام لا تقبل البنك 🔴\n📏 المساحة: 800 متر مربع\nالعمر قريب من 20 سنة\nبدون صك 🔴\n🏗️ عدد الأدوار: 3 أدوار + قسم منفصل للعمالة\n💰 المطلوب: آخر سومة مليون ريال🔴\n🔹 تفاصيل العقار:\n✅ الدور الأول:\nشقة 1: 3 غرف، حمام، صالة، مطبخ، مدخلين\nشقة 2: 2 غرفة، 2 حمام، صالة، مطبخ، مدخلين\n✅ الدور الثاني:\nشقة 1: 4 غرف، 2 حمام، صالة، مطبخ\nشقة 2: 4 غرف، 2 حمام، صالة، مطبخ\n✅ الدور الثالث (نظام فيلا):\n4 غرف، حمام، مطبخ، صالة كبيرة\nسطح خاص بالشقة + سطح ثاني خاص بالعمارة\n✅ قسم منفصل في الحوش:\n9 غرف، لكل غرفة حمام مستقل وخدمات متكاملة\n📌 💡 العقار مناسب للسكن والاستثمار، بتوزيع عملي وتصميم يوفر خصوصية لجميع الوحدات."
+            },
+            {
+                "id": 14,
+                "title": "عمارة دورين وملحق",
+                "category": "عمائر",
+                "location": "الطائف - الحلقة الشرقية",
+                "price": "1,600,000 ريال",
+                "description": "العقار عبارة عن دورين وملحق، يتميز بالتصميم المنفصل بين الدور الأرضي والدور الأول والملحق، مع تفاصيله كالتالي:\nتفاصيل العقار:\n• مساحة الأرض: 667 متر مربع.\n• مساحة البناء: 538 متر مربع.\nالدور الأرضي:\n• 3 مداخل.\n• 3 غرف نوم مع دورات مياه.\n• صالتان.\n• مجلس نساء ومجلس رجال.\n• مقلط.\n• صالة طعام ومطبخ مغلق.\n• مجلس خارجي (ملحق) مع جلسة خارجية ومزرعة.\n• مدخل كراج.\n• مستودع وغرفة غسيل وغرفة خادمة.\nالدور الأول:\n• 3 مداخل.\n• حوش.\n• 3 غرف نوم مع دورة مياه لكل غرفة.\n• مجلس نساء ومجلس رجال.\n• مقلط.\n• مطبخ مغلق.\n• صالة.\n• صالة طعام.\nالملحق:\n• مدخلان.\n• غرفة نوم مع دورة مياه.\n• مجلس نساء ومجلس رجال مع دورة مياه.\n• صالة.\n• مطبخ مركب وجاهز.\n• سطح خاص.\nمعلومات إضافية:\n• عمر العقار أكثر من 20 سنة.\n• المطلوب: 1,600,000 ريال صافي شامل الرهن.\n• عليه رهن من البنك العربي بقيمة 348,000 ريال."
+            },
+            {
+                "id": 15,
+                "title": "دور مستقل",
+                "category": "أدوار مستقلة",
+                "location": "الطائف - رحاب",
+                "price": "900,000 ريال",
+                "description": "للبيع – فرصة عقارية مميزة! 🏡🔥\n🔹 البناء شخصي وجديد – تشطيب راقٍ وجودة عالية\n🔹 موقع مميز في حي الرحاب (المربع الذهبي) – على شارع 15، مرفوع في منصة إحكام وفي المرحلة الأخيرة\n🔴 مؤسسة على 4 ادوار دور والأدوار الأخرى شقتين لكل دور 🔴\n🔹 المساحة: 733 م²، بمسطح بناء 470 م²\n🔹 الدور الأول:\nمجلس رجال (5.60 × 7) + مقلط (5 × 7)\nمجلس نساء (5.50 × 5.50) + صالة واسعة (5.50 × 6.50)\n4 غرف نوم (2 بحجم 4 × 5، وواحدة ماستر 5 × 6، وواحدة 5 × 5)\n4 دورات مياه\nمطبخ (4 × 5) مع مستودع (3 م)\n🔹 الدور الثاني: شقتان تحتاجان فقط لصب سقف\n🔹 مؤسس لأربع أدوار\n🔹 3 مداخل خارجية (مدخل رئيسي – مدخل للشقق – مدخل خاص بالنساء) + كراج سيارة\n🔹 تم تركيب مكيفات سبليت لكامل الفيلا + مطبخ جاهز\n🔴 السوم 750 ألف والبيع قريب 🔴\n🔴🔴 الحد 950 الف قابل للتفاوض 🔴🔴"
+            }
+        ];
+
+        // متغيرات عامة
+        let filteredProperties = [...properties];
+        let propertyModal;
+
+        // عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('تم تحميل الصفحة - عدد العقارات الكلي:', properties.length);
+            
+            // إنشاء مودال Bootstrap
+            propertyModal = new bootstrap.Modal(document.getElementById('propertyModal'));
+            
+            // عرض جميع العقارات عند التحميل
+            displayProperties();
+            
+            // إعداد البحث
+            setupSearch();
+            
+            console.log('تم الانتهاء من إعداد الموقع بنجاح');
+        });
+
+        // إعداد البحث
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.trim();
+                    searchProperties(searchTerm);
+                });
+            }
+        }
+
+        // وظيفة البحث
+        function searchProperties(searchTerm) {
+            if (!searchTerm) {
+                filteredProperties = [...properties];
+            } else {
+                const lowerSearchTerm = searchTerm.toLowerCase();
+                filteredProperties = properties.filter(property => 
+                    property.title.toLowerCase().includes(lowerSearchTerm) ||
+                    property.location.toLowerCase().includes(lowerSearchTerm) ||
+                    property.price.toLowerCase().includes(lowerSearchTerm) ||
+                    property.description.toLowerCase().includes(lowerSearchTerm) ||
+                    property.category.toLowerCase().includes(lowerSearchTerm)
+                );
+            }
+            displayProperties();
+        }
+
+        // عرض العقارات
+        function displayProperties() {
+            const container = document.getElementById('propertiesContainer');
+            const noResults = document.getElementById('noResults');
+            
+            if (!container) {
+                console.error('لم يتم العثور على container العقارات');
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            if (filteredProperties.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            } else {
+                noResults.style.display = 'none';
+            }
+            
+            console.log('عرض العقارات - العدد:', filteredProperties.length);
+            
+            filteredProperties.forEach(property => {
+                const propertyCard = createPropertyCard(property);
+                container.appendChild(propertyCard);
+            });
+        }
+
+        // إنشاء بطاقة عقار
+        function createPropertyCard(property) {
+            const col = document.createElement('div');
+            col.className = 'col-lg-4 col-md-6 mb-4';
+            
+            // اختيار صورة حسب نوع العقار
+            let backgroundImage = '';
+            if (property.category === 'عمائر') {
+                backgroundImage = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            } else if (property.category === 'شقق') {
+                backgroundImage = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+            } else if (property.category === 'أدوار مستقلة') {
+                backgroundImage = 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)';
+            } else {
+                backgroundImage = 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)';
+            }
+            
+            col.innerHTML = `
+                <div class="property-card" onclick="showPropertyDetail(${property.id})">
+                    <div class="property-image" style="background: ${backgroundImage};">
+                        <div class="property-badge">${property.category}</div>
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                            <i class="bi bi-${getIconForCategory(property.category)} text-white" style="font-size: 4rem; opacity: 0.7;"></i>
+                        </div>
+                    </div>
+                    <div class="property-content">
+                        <h3 class="property-title">${property.title}</h3>
+                        <p class="property-location">
+                            <i class="bi bi-geo-alt-fill text-danger"></i> ${property.location}
+                        </p>
+                        <div class="property-price">${property.price}</div>
+                        <button class="btn-details">
+                            <i class="bi bi-eye"></i> عرض التفاصيل
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return col;
+        }
+
+        // اختيار الأيقونة حسب النوع
+        function getIconForCategory(category) {
+            switch(category) {
+                case 'عمائر': return 'building';
+                case 'شقق': return 'house-door';
+                case 'أدوار مستقلة': return 'layers';
+                case 'فلل': return 'house';
+                case 'أراضي': return 'geo-alt';
+                default: return 'house';
+            }
+        }
+
+        // تصفية العقارات حسب النوع
+        function filterProperties(category) {
+            console.log('تصفية حسب:', category);
+            
+            if (category === 'all') {
+                filteredProperties = [...properties];
+            } else {
+                filteredProperties = properties.filter(property => property.category === category);
+            }
+            
+            console.log('عدد العقارات بعد التصفية:', filteredProperties.length);
+            displayProperties();
+            scrollToProperties();
+        }
+
+        // التمرير إلى قسم العقارات
+        function scrollToProperties() {
+            const section = document.getElementById('propertiesSection');
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // عرض تفاصيل العقار
+        function showPropertyDetail(propertyId) {
+            const property = properties.find(p => p.id === propertyId);
+            if (!property) {
+                console.error('لم يتم العثور على العقار:', propertyId);
+                return;
+            }
+            
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalTitle.textContent = property.title;
+            
+            modalBody.innerHTML = `
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="mb-4">
+                            <h4 class="text-primary mb-3">معلومات العقار</h4>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong><i class="bi bi-geo-alt-fill text-danger"></i> الموقع:</strong> ${property.location}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong><i class="bi bi-tag-fill text-success"></i> السعر:</strong> ${property.price}</p>
+                                </div>
+                            </div>
+                            <p><strong><i class="bi bi-building text-primary"></i> النوع:</strong> 
+                               <span class="badge bg-primary">${property.category}</span>
+                            </p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4 class="text-primary mb-3">وصف مفصل</h4>
+                            <div class="description-text p-3" style="background: #f8f9fa; border-radius: 10px;">
+                                ${property.description}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow">
+                            <div class="card-body text-center p-4">
+                                <i class="bi bi-whatsapp text-success mb-3" style="font-size: 3rem;"></i>
+                                <h5 class="card-title">هل أنت مهتم؟</h5>
+                                <p class="card-text text-muted">تواصل معنا الآن للاستفسار وتحديد موعد المعاينة</p>
+                                <a href="https://wa.me/966555364095?text=${encodeURIComponent('مرحباً، أود الاستفسار عن ' + property.title + ' في ' + property.location)}" 
+                                   class="whatsapp-btn w-100" target="_blank">
+                                    <i class="bi bi-whatsapp"></i> تواصل معنا
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            propertyModal.show();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,342 @@
+:root {
+  --font-family: 'Cairo', sans-serif;
+  --primary-color: #2B2D42;
+  --secondary-color: #F8F9FA;
+  --accent-color: #EF233C;
+  --header-gradient: linear-gradient(135deg, #2B2D42, #3C4059);
+  --header-text-color: #fff;
+  --radius: 10px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--secondary-color);
+  margin: 0;
+  padding-top: 100px;
+  color: var(--primary-color);
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--header-gradient);
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  z-index: 1100;
+  color: var(--header-text-color);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-container h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.login-btn {
+  background-color: transparent;
+  border: 1px solid var(--header-text-color);
+  color: var(--header-text-color);
+  border-radius: 5px;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+
+#visitorCount {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-right: auto;
+  margin-left: 15px;
+}
+
+#loginPanel {
+  display: none;
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  width: 300px;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 2000;
+  border-radius: var(--radius);
+}
+
+#loginPanel h5 {
+  color: var(--accent-color);
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#adminPanel {
+  display: none;
+  background: #fff;
+  padding: 20px;
+  border: 2px solid var(--accent-color);
+  border-radius: var(--radius);
+  max-width: 1200px;
+  margin: 80px auto 40px;
+}
+
+#adminPanel h3 {
+  color: var(--accent-color);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.action-badge {
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 5px;
+  margin: 2px;
+}
+
+.action-badge.edit {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.action-badge.delete {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.hero-section {
+  background: url("https://source.unsplash.com/1200x500/?house") center center/cover no-repeat;
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  margin-top: 60px;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.hero-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.btn-hero {
+  background-color: var(--accent-color);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 30px;
+  font-size: 1.1rem;
+  transition: 0.3s;
+}
+
+.btn-hero:hover {
+  background-color: #fff;
+  color: var(--accent-color);
+}
+
+.category-title {
+  color: var(--accent-color);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.category-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+
+.category-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.category-icon {
+  font-size: 1.8rem;
+  color: var(--accent-color);
+  margin-bottom: 5px;
+}
+
+.category-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.property-list-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#loadingProperties {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+}
+
+.property-card {
+  border: none;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.property-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.property-card img {
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+  height: 300px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.badge-category {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--accent-color);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  z-index: 2;
+}
+
+.property-card .card-body {
+  padding: 15px;
+  flex-grow: 1;
+}
+
+.property-card h5 {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.property-card p {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+#propertyDetailPage {
+  display: none;
+  padding: 20px;
+}
+
+.carousel-item img {
+  border-radius: var(--radius);
+  height: 400px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.description-text {
+  white-space: pre-line;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.btn-whatsapp {
+  font-size: 1.5rem;
+  padding: 15px 30px;
+  border-radius: 5px;
+}
+
+#toastContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1300;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+#additionalImagesPreview img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  margin-right: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  body { padding-top: 110px; }
+  .property-card img { height: 300px; }
+}

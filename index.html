@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>منصّة عقارك - الصفحة الرئيسية</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- خط Cairo -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS (نسخة RTL) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <!-- أيقونات Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- ملف CSS المخصص -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- الهيدر -->
+  <header class="header">
+    <div class="header-container">
+      <h1>منصّة عقارك</h1>
+      <div id="visitorCount">عدد الزائرين: 1,247</div>
+      <button class="login-btn" id="loginLogoutBtn" onclick="toggleLoginPanel()">دخول الإدارة</button>
+    </div>
+  </header>
+  
+  <!-- نموذج تسجيل الدخول -->
+  <div id="loginPanel">
+    <h5>تسجيل الدخول</h5>
+    <label for="usernameInput" class="form-label">اسم المستخدم</label>
+    <input type="text" id="usernameInput" class="form-control" placeholder="اكتب اسم المستخدم">
+    <label for="passwordInput" class="form-label mt-2">كلمة المرور</label>
+    <input type="password" id="passwordInput" class="form-control" placeholder="اكتب كلمة المرور">
+    <button class="btn btn-primary mt-3 w-100" onclick="performLogin()">دخول</button>
+  </div>
+  
+  <!-- لوحة الإدارة -->
+  <div id="adminPanel">
+    <h3 class="mb-3">لوحة التحكم - إدارة العقارات</h3>
+    <form id="propertyForm" class="mb-4">
+      <input type="hidden" id="propertyId">
+      <div class="mb-3">
+        <label for="title" class="form-label">العنوان</label>
+        <input type="text" id="title" class="form-control" placeholder="مثلاً: عقار 1 - عمارة سكنية" required>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">الموقع</label>
+        <input type="text" id="location" class="form-control" placeholder="مثلاً: الطايف - حي ..." required>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">السعر (مثال: 1500000)</label>
+        <input type="text" id="price" class="form-control" placeholder="اكتب السعر بالأرقام" required>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">التصنيف</label>
+        <select id="category" class="form-select" required>
+          <option value="">اختر التصنيف</option>
+          <option value="عمائر">عمائر</option>
+          <option value="فلل">فلل</option>
+          <option value="شقق">شقق</option>
+          <option value="استراحات">استراحات</option>
+          <option value="أدوار مستقلة">أدوار مستقلة</option>
+          <option value="أراضي">أراضي</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">
+          الوصف <i class="bi bi-whatsapp text-success"></i>
+        </label>
+        <textarea id="description" class="form-control" rows="3" placeholder="تفاصيل العقار"></textarea>
+      </div>
+      <div class="d-flex align-items-center flex-wrap gap-2">
+        <button type="submit" class="btn btn-success" id="saveBtn">حفظ التعديلات</button>
+        <button type="reset" class="btn btn-secondary" id="resetForm">إعادة تعيين</button>
+        <button type="button" class="btn btn-info" id="newPropertyBtn">إضافة عقار جديد</button>
+        <span id="autoSaveStatus" class="text-success" style="display:none;">تم الحفظ</span>
+      </div>
+    </form>
+    <h4>العقارات المُضافة</h4>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped align-middle" id="propertiesTable">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>العنوان</th>
+            <th>الموقع</th>
+            <th>السعر (أرقام)</th>
+            <th>التصنيف</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody">
+          <!-- سيتم تعبئة الجدول هنا -->
+        </tbody>
+      </table>
+    </div>
+    <button class="btn btn-danger mt-3" onclick="performLogout()">تسجيل خروج</button>
+  </div>
+  
+  <!-- قسم Hero -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h2>أهلاً بك في منصّة عقارك</h2>
+      <p>ابحث عن أفضل العقارات المناسبة لاحتياجاتك بسهولة ويسر</p>
+      <button class="btn-hero" onclick="scrollToProperties()">استعراض العقارات</button>
+    </div>
+  </section>
+  
+  <!-- أقسام العقارات مع خانة بحث -->
+  <section class="container my-5">
+    <h2 class="category-title">الأقسام العقارية</h2>
+    <div class="mb-4">
+      <input type="text" id="searchInput" class="form-control" placeholder="ابحث عن عقار (عنوان، موقع، سعر، وصف أو تصنيف)...">
+    </div>
+    <div class="row row-cols-2 row-cols-md-4 g-3 justify-content-center">
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('all')">
+          <i class="bi bi-card-list category-icon"></i>
+          <span class="category-text">عرض الكل</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('عمائر')">
+          <i class="bi bi-building category-icon"></i>
+          <span class="category-text">عمائر</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('فلل')">
+          <i class="bi bi-house category-icon"></i>
+          <span class="category-text">فلل</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('شقق')">
+          <i class="bi bi-houses category-icon"></i>
+          <span class="category-text">شقق</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('استراحات')">
+          <i class="bi bi-tree category-icon"></i>
+          <span class="category-text">استراحات</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('أدوار مستقلة')">
+          <i class="bi bi-layers category-icon"></i>
+          <span class="category-text">أدوار مستقلة</span>
+        </div>
+      </div>
+      <div class="col">
+        <div class="category-card" onclick="filterProperties('أراضي')">
+          <i class="bi bi-geo-alt category-icon"></i>
+          <span class="category-text">أراضي</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- قائمة العقارات العامة -->
+  <section class="container" id="publicContent">
+    <h2 class="property-list-title">العقارات المتاحة</h2>
+    <div id="loadingProperties" style="display:none;">جارٍ تحميل العقارات...</div>
+    <div id="propertiesContainer" class="row">
+      <!-- بطاقات العقارات ستظهر هنا -->
+    </div>
+  </section>
+  
+  <!-- صفحة تفاصيل العقار -->
+  <div id="propertyDetailPage">
+    <div class="container mt-4">
+      <button class="btn btn-secondary mb-3" onclick="backToListing()">عودة للقائمة</button>
+      <div id="detailContent">
+        <!-- تفاصيل العقار ستظهر هنا -->
+      </div>
+    </div>
+  </div>
+  
+  <!-- Toast Notification Container -->
+  <div id="toastContainer"></div>
+  
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- ملف JavaScript المخصص -->
+  <script src="app.js"></script>
+</body>
+</html>
